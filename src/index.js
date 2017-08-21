@@ -3,6 +3,8 @@ import TalkService from "./common/talk.service.js";
 import Layout from "./layout/index.js";
 import SpeakerList from "./speakers/list/index.js";
 import SessionList from "./sessions/list/index.js";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap";
 
 const talkService = new TalkService();
 const layout = new Layout();
@@ -16,6 +18,7 @@ let router = () => {
   } else if (location.hash == "#sessions-list") {
     sessionList.render('main-view');
   } else {
+    
   }
 };
 

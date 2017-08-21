@@ -1,6 +1,6 @@
 var path = require("path");
-//var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 var HtmlWebpackPlugin = require("html-webpack-plugin");
+var webpack = require("webpack");
 
 module.exports = {
   // définition des points d'entrée
@@ -11,18 +11,27 @@ module.exports = {
     filename: "bundle.js"
   },
   plugins: [
-    //new UglifyJSPlugin(),
-    new HtmlWebpackPlugin()
+    new HtmlWebpackPlugin(),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      "window.jQuery": "jquery",
+      Popper: "popper.js"
+    })
   ],
   module: {
     rules: [
       {
+        test: /\.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+        use: "file-loader?name=fonts/[name].[ext]"
+      },
+      {
         test: /\.html$/,
-        use: [
-          {
-            loader: "html-loader"
-          }
-        ]
+        use: "html-loader"
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"]
       }
     ]
   }
